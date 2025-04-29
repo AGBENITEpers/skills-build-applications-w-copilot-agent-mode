@@ -4,16 +4,16 @@ from octofit_tracker.models import User, Team, Activity, Leaderboard, Workout
 class Command(BaseCommand):
     help = 'Populate the database with test data'
 
-    def handle(self, *args, **kwargs):
+    def handle(self):
         # Create test users
-        user1, created1 = User.objects.get_or_create(email='john.doe@example.com', defaults={'name': 'John Doe'})
-        user2, created2 = User.objects.get_or_create(email='jane.smith@example.com', defaults={'name': 'Jane Smith'})
-        user3, created3 = User.objects.get_or_create(email='alex.jones@example.com', defaults={'name': 'Alex Jones'})
-        user4, created4 = User.objects.get_or_create(email='emma.watson@example.com', defaults={'name': 'Emma Watson'})
+        user1 = User.objects.get_or_create(email='john.doe@example.com', defaults={'name': 'John Doe'})[0]
+        user2 = User.objects.get_or_create(email='jane.smith@example.com', defaults={'name': 'Jane Smith'})[0]
+        user3 = User.objects.get_or_create(email='alex.jones@example.com', defaults={'name': 'Alex Jones'})[0]
+        user4 = User.objects.get_or_create(email='emma.watson@example.com', defaults={'name': 'Emma Watson'})[0]
 
         # Create test teams
-        team1, created_team = Team.objects.get_or_create(name='Team Alpha', defaults={'members': [user1.id, user2.id]})
-        team2, created_team2 = Team.objects.get_or_create(name='Team Beta', defaults={'members': [user3.id, user4.id]})
+        Team.objects.get_or_create(name='Team Alpha', defaults={'members': [user1.id, user2.id]})
+        Team.objects.get_or_create(name='Team Beta', defaults={'members': [user3.id, user4.id]})
 
         # Create test activities
         Activity.objects.get_or_create(user=user1, type='Running', defaults={'duration': 30, 'date': '2025-04-28'})
