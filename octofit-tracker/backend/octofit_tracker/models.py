@@ -1,4 +1,5 @@
 from django.db import models
+from rest_framework import serializers
 
 class User(models.Model):
     email = models.EmailField(unique=True)
