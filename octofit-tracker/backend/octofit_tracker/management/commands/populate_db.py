@@ -39,4 +39,19 @@ class Command(BaseCommand):
         Workout.objects.get_or_create(name='Plank', defaults={'description': 'Hold a plank for 2 minutes', 'duration': 2})
         Workout.objects.get_or_create(name='Lunges', defaults={'description': 'Do 20 lunges', 'duration': 15})
 
+        # Ensure all test data aligns with requirements
+        user5, created5 = User.objects.get_or_create(email='michael.brown@example.com', defaults={'name': 'Michael Brown'})
+        user6, created6 = User.objects.get_or_create(email='sarah.connor@example.com', defaults={'name': 'Sarah Connor'})
+
+        team3, created_team3 = Team.objects.get_or_create(name='Team Gamma', defaults={'members': [user5.id, user6.id]})
+
+        Activity.objects.get_or_create(user=user5, type='Hiking', defaults={'duration': 120, 'date': '2025-04-29'})
+        Activity.objects.get_or_create(user=user6, type='Dancing', defaults={'duration': 90, 'date': '2025-04-29'})
+
+        Leaderboard.objects.get_or_create(user=user5, defaults={'points': 250})
+        Leaderboard.objects.get_or_create(user=user6, defaults={'points': 220})
+
+        Workout.objects.get_or_create(name='Burpees', defaults={'description': 'Do 15 burpees', 'duration': 5})
+        Workout.objects.get_or_create(name='Jumping Jacks', defaults={'description': 'Do 50 jumping jacks', 'duration': 10})
+
         self.stdout.write(self.style.SUCCESS('Database populated with test data'))
