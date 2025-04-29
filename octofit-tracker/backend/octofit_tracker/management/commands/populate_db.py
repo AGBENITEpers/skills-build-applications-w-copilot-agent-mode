@@ -6,8 +6,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # Create test users
-        user1 = User.objects.create(email='john.doe@example.com', name='John Doe')
-        user2 = User.objects.create(email='jane.smith@example.com', name='Jane Smith')
+        user1, created1 = User.objects.get_or_create(email='john.doe@example.com', defaults={'name': 'John Doe'})
+        user2, created2 = User.objects.get_or_create(email='jane.smith@example.com', defaults={'name': 'Jane Smith'})
 
         # Create test teams
         team1 = Team.objects.create(name='Team Alpha', members=[user1.id, user2.id])
